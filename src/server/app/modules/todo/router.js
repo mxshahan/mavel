@@ -8,7 +8,7 @@ import {
 
 export const baseUrl = '/api/todo';
 
-export default [
+export const routes = [
   {
     method: 'GET',
     route: '/',

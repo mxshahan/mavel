@@ -5,15 +5,12 @@ import helmet from 'koa-helmet';
 import config from 'config';
 import serve from 'koa-static';
 import mount from 'koa-mount';
-import Router from 'koa-router';
 
 import { cModules, cMiddleware } from '../app';
 import { catchErr, statusMessage } from './errorConfig';
 import nuxtConfig from './nuxtConfig';
 
-import { todoIndex } from '../app/modules/todo/controller';
-
-function baseConfig(app, io) {
+function baseConfig(app) {
   app.keys = config.get('secret');
   app.proxy = true;
 
@@ -30,18 +27,8 @@ function baseConfig(app, io) {
     statusMessage
   ));
 
-  // cModules(app, io);
-  // app.use(cMiddleware());
-
-  const router = new Router({
-    prefix: '/api/todo'
-  });
-
-  router.get('/', todoIndex);
-
-  app
-    .use(router.routes())
-    .use(router.allowedMethods());
+  cModules(app);
+  app.use(cMiddleware());
 
   if (config.get('nuxtBuild')) {
     nuxtConfig(app);
