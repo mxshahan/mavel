@@ -8,6 +8,7 @@
     "prebuild": "rimraf dist",
     "build": "node bin/server.build.js",
     "test": "node bin/app.test.js",
+    "doc": "apidoc -i src/ -o doc/",
     "start": "cross-env NODE_ENV=production node dist/server/core"
   },
   "repository": {
@@ -81,6 +82,7 @@
     "eslint-loader": "^2.0.0",
     "eslint-plugin-html": "^4.0.2",
     "eslint-plugin-import": "^2.10.0",
+    "jest": "^22.4.3",
     "node-sass": "^4.8.3",
     "nodemon": "^1.17.3",
     "postcss-advanced-variables": "^2.3.3",
@@ -100,6 +102,23 @@
     "rimraf": "^2.6.2",
     "rucksack-css": "^1.0.2",
     "sass-loader": "^6.0.7",
-    "shelljs": "^0.8.1"
+    "shelljs": "^0.8.1",
+    "supertest": "^3.0.0"
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/config"
+    ],
+    "testEnvironment": "node"
+  },
+  "apidoc": {
+    "name": "Mavel",
+    "version": "1.0.1",
+    "description": "API documentation for Mavel",
+    "apidoc": {
+      "title": "API documentation for Mavel",
+      "url": "https://awaz.com"
+    }
   }
 }

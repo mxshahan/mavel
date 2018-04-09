@@ -6,7 +6,7 @@ import config from 'config';
 import serve from 'koa-static';
 import mount from 'koa-mount';
 
-import { cModules, cMiddleware } from '../app';
+import cModules from '../app';
 import { catchErr, statusMessage } from './errorConfig';
 import nuxtConfig from './nuxtConfig';
 
@@ -28,7 +28,6 @@ function baseConfig(app) {
   ));
 
   cModules(app);
-  app.use(cMiddleware());
 
   if (config.get('nuxtBuild')) {
     nuxtConfig(app);

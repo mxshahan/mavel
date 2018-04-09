@@ -3,23 +3,27 @@ export default class Crud {
     this.model = model;
   }
 
-  get() {
+  get(options) {
     return new Promise((resolve, reject) => {
-      this.model.find().exec().then((result) => {
-        resolve(result);
-      }).catch((e) => {
-        reject(e);
-      });
+      this.model.find(options).select(options.select || '').populate(options.populate || '').exec()
+        .then((result) => {
+          resolve(result);
+        })
+        .catch((e) => {
+          reject(e);
+        });
     });
   }
 
   single(options) {
     return new Promise((resolve, reject) => {
-      this.model.findOne(options).exec().then((result) => {
-        resolve(result);
-      }).catch((e) => {
-        reject(e);
-      });
+      this.model.findOne(options.qr).select(options.select || '').populate(options.populate || '').exec()
+        .then((result) => {
+          resolve(result);
+        })
+        .catch((e) => {
+          reject(e);
+        });
     });
   }
 
@@ -36,7 +40,7 @@ export default class Crud {
   }
 
   async delete(options) {
-    const record = await this.single(options);
+    const record = await this.single(options.params);
     return new Promise((resolve, reject) => {
       record.remove().then((result) => {
         resolve(result);
