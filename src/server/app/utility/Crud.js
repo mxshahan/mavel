@@ -5,7 +5,10 @@ export default class Crud {
 
   get(options) {
     return new Promise((resolve, reject) => {
-      this.model.find(options).select(options.select || '').populate(options.populate || '').exec()
+      this.model.find(options ? options.qr : {})
+        .select(options ? options.select ? options.select : {} : {}) //eslint-disable-line
+        .populate(options ? options.populate ? options.populate : '' : '') //eslint-disable-line
+        .exec()
         .then((result) => {
           resolve(result);
         })
@@ -17,7 +20,10 @@ export default class Crud {
 
   single(options) {
     return new Promise((resolve, reject) => {
-      this.model.findOne(options.qr).select(options.select || '').populate(options.populate || '').exec()
+      this.model.findOne(options ? options.qr : {})
+        .select(options ? options.select ? options.select : {} : {}) //eslint-disable-line
+        .populate(options ? options.populate ? options.populate : '' : '') //eslint-disable-line
+        .exec()
         .then((result) => {
           resolve(result);
         })
